@@ -30,8 +30,10 @@ raw_data = {}
 file_names = os.listdir('./materials/dataset/')
 for file_name in file_names:
     fd = open(f"./materials/dataset/{file_name}")
-    key = file_name.removesuffix('.html')
-    raw_data[key] = file_to_prompt_pairs(fd)
+    prompt_answer_pair = file_to_prompt_pairs(fd)
+    if prompt_answer_pair:
+        key = file_name.removesuffix('.html')
+        raw_data[key] = prompt_answer_pair
     fd.close()
 
 raw_data_fd = open('raw_data.json', 'w')
